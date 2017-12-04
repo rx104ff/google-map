@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {AgmCoreModule} from '@agm/core';
 import {GoogleMapComponent} from './google-map.component';
 import {NguiMapModule} from '@ngui/map';
+import {GoogleMapService} from './google-map.service';
 
 @NgModule({
   imports: [
@@ -12,7 +13,7 @@ import {NguiMapModule} from '@ngui/map';
     CommonModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [GoogleMapService],
   declarations: [],
   bootstrap: []
 })

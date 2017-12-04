@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {CityService} from './city.service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [

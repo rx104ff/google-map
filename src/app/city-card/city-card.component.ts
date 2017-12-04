@@ -9,17 +9,22 @@ import {CityService} from './city.service';
 
 export class CityCardComponent implements OnInit {
   @Input() cityName: string;
+  @Input() lat: number;
+  @Input() lng: number;
   @Output()
-  cityDetail = new EventEmitter<string>();
+  cityDetail = new EventEmitter<City>();
   city = new City();
-  constructor(private cityService: CityService) {}
+
+  constructor(private cityService: CityService) {
+  }
 
   ngOnInit() {
     this.city.name = this.cityName;
-    this.city = this.cityService.getCityByName(this.cityName)
+    this.city.lat = this.lat;
+    this.city.lng = this.lng;
   }
 
   zoomIn() {
-    this.cityDetail.emit(this.cityName)
+    this.cityDetail.emit(this.city)
   }
 }

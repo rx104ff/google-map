@@ -1,15 +1,34 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import {AppComponent} from './app.component';
+import {AppModule} from './app.module';
+import {GoogleMapComponent} from './google-map/google-map.component';
+import {
+  MatToolbarModule, MatCardModule, MatStepperModule,
+  MatSidenavModule,
+  MatButtonModule
+} from '@angular/material';
+import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
+import {AgmCoreModule} from '@agm/core';
+import {RouterModule} from '@angular/router'
+import {BrowserModule} from '@angular/platform-browser/';
+import {SharedModule} from './shared/shared.module';
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<GoogleMapComponent>;
+  let comp: GoogleMapComponent;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [SharedModule],
       declarations: [
-        AppComponent
+        AppComponent,
+        GoogleMapComponent
       ],
-    }).compileComponents();
+    }).compileComponents().then(() => {
+      fixture = TestBed.createComponent(GoogleMapComponent);
+      comp = fixture.componentInstance;
+    });
   }));
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));

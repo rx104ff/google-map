@@ -1,7 +1,19 @@
 ///<reference path="../../../node_modules/@agm/snazzy-info-window/directives/snazzy-info-window.d.ts"/>
-import {Component, OnInit, Output, EventEmitter, Input, ViewChildren, QueryList} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewChildren,
+  QueryList,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import {AgmSnazzyInfoWindow} from '@agm/snazzy-info-window';
 import {CityService} from '../city-card/city.service';
+import {GoogleMapService} from './google-map.service';
+import {CityCode} from './google-map.types';
 
 @Component
 ({
@@ -10,7 +22,7 @@ import {CityService} from '../city-card/city.service';
   styleUrls: ['./google-map.component.css']
 })
 
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapComponent implements OnInit, OnChanges {
   @Input() cityName: string;
   @Output() childEvent = new EventEmitter<any>();
   @ViewChildren(AgmSnazzyInfoWindow) agmSnazzyInforWindow: QueryList<AgmSnazzyInfoWindow>;
@@ -98,17 +110,41 @@ export class GoogleMapComponent implements OnInit {
     },
   ];
 
-  constructor(private cityService: CityService) {
+  constructor(private cityService: CityService,
+              private googleMapService: GoogleMapService) {
   }
 
   ngOnInit() {
-    console.log('test');
+    console.log('Map is successfully loaded');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.lng);
   }
 
   zoomIn(city) {
-    this.zoom = 12;
-    this.lat = 1.290270;
-    this.lng = 103.851959;
+    this.lat = city.lat;
+    this.lng = city.lng;
+    this.zoom = 11;
+
+    // const cityCode = new CityCode(null, null);
+    // const geoCoder = new google.maps.Geocoder();
+    // geoCoder.geocode({
+    //   'address': city
+    // }, (results, status) => {
+    //   if (status === google.maps.GeocoderStatus.OK) {
+    //     this.lat = results[0].geometry.location.lat();
+    //     this.lng = results[0].geometry.location.lng();
+    //   } else {
+    //     alert('Something got wrong' + status);
+    //   }
+    // });
+    // console.log(city);
+    // this.lat = cityCode.lat;
+    // this.lng = cityCode.lng;
+    // this.zoom = 12;
+    // this.lat = 1.290270;
+    // this.lng = 103.851959;
     this.selectFacility(0)
   };
 

@@ -11,34 +11,25 @@ import {MatCardModule, MatStepperModule, MatSidenavModule, MatButtonModule} from
 import {CityComponent} from './city-card/city.component';
 import {CityCardComponent} from './city-card/city-card.component';
 import {CityService} from './city-card/city.service';
+import {SharedModule} from './shared/shared.module';
+import {MainComponent} from './layout/main/main.component';
+import {NavbarComponent} from './layout/navbar/navbar.component';
+import {GoogleMapService} from './google-map/google-map.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleMapComponent,
     CityComponent,
-    CityCardComponent
+    CityCardComponent,
+    MainComponent,
+    NavbarComponent
   ],
   imports: [
-    MatToolbarModule,
-    RouterModule.forRoot([
-      {
-        path: 'dashboard',
-        component: GoogleMapComponent
-      }
-    ]),
-    BrowserModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD2JICaWUxAtdp9fJTDPp8iWK-Kl13vNzo'
-    }),
-    AgmSnazzyInfoWindowModule,
-    MatCardModule,
-    MatStepperModule,
-    MatSidenavModule,
-    MatButtonModule
+   SharedModule
   ],
-  providers: [CityService],
-  bootstrap: [AppComponent]
+  providers: [CityService, GoogleMapService],
+  bootstrap: [MainComponent]
 })
 export class AppModule {
 }

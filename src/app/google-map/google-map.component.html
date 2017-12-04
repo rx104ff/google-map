@@ -1,22 +1,24 @@
 <div>
-  <agm-map [latitude]="lat"
-           [longitude]="lng"
+  <agm-map [(latitude)]="lat"
+           [(longitude)]="lng"
            [disableDefaultUI]="false"
            [zoomControl]="false"
-           [zoom]="zoom"
-           [styles]="styles">
+           [(zoom)]="zoom"
+           [styles]="styles"
+           [mapDraggable]="false"
+           [scrollwheel]="false"
+           id="test">
     <ng-container *ngIf="zoom<10">
       <agm-marker *ngFor="let m of cities"
                   [latitude]="m.lat"
                   [longitude]="m.lng"
                   [label]="m.label"
-                  [markerDraggable]="m.draggable"
-      >
-        <agm-snazzy-info-window [maxWidth]="400" [closeWhenOthersOpen]="true">
-          <ng-template>
-            <se-city-card [cityName]="m.label"
-                          (cityDetail)="zoomIn($event); cityDetail($event)"></se-city-card>
-          </ng-template>
+                  [markerDraggable]="m.draggable">
+        <agm-snazzy-info-window [maxWidth]="800" [maxHeight]="800" [closeWhenOthersOpen]="true">
+        <ng-template>
+        <se-city-card [cityName]="m.label" [lat]="m.lat" [lng]="m.lng"
+        (cityDetail)="zoomIn($event); cityDetail($event)"></se-city-card>
+        </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
     </ng-container>
