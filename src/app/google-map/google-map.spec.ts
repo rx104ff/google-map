@@ -14,7 +14,7 @@ import {NavbarComponent} from '../layout/navbar/navbar.component';
 import {APP_BASE_HREF} from '@angular/common';
 import {CityService} from '../city-card/city.service';
 
-fdescribe('GoogleComponent', () => {
+describe('GoogleComponent', () => {
   let fixture: ComponentFixture<GoogleMapComponent>;
   let comp: GoogleMapComponent;
   beforeEach(async(() => {

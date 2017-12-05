@@ -55,15 +55,6 @@ export class CityComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
-
   constructor(private cityService: CityService) {
   }
 
