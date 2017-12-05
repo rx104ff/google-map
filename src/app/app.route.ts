@@ -5,7 +5,7 @@ import {NavbarComponent} from './layout/navbar/navbar.component';
 
 export const route: Routes = [
   {
-    path: '/dashboard',
+    path: '/',
     component: GoogleMapComponent,
     outlet: 'se-google-map',
   },

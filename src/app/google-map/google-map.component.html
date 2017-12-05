@@ -8,6 +8,7 @@
            [mapDraggable]="false"
            [scrollwheel]="false"
            id="test">
+    <button mat-raised-button color="primary" (click)="reCenter()">Re-center</button>
     <ng-container *ngIf="zoom<10">
       <agm-marker *ngFor="let m of cities"
                   [latitude]="m.lat"
@@ -23,5 +24,7 @@
       </agm-marker>
     </ng-container>
   </agm-map>
-  <button mat-raised-button color="primary" (click)="reCenter()">Re-center</button>
 </div>
+<button *ngIf="zoom>3" mat-raised-button color="primary" (click)="reCenter()">Return to World Map</button>
+<ng-template #cityContainer></ng-template>
+

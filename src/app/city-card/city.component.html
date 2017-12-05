@@ -1,3 +1,27 @@
 <mat-card>
+  <h2>{{cityName}} Detail Usage</h2>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType">
+        </canvas>
+      </div>
+      <button mat-button (click)="chartTypeToggle()" style="display: inline-block">Toggle</button>
 
+      <div>
+        <canvas baseChart
+                [data]="doughnutChartData"
+                [labels]="doughnutChartLabels"
+                [chartType]="doughnutChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
 </mat-card>

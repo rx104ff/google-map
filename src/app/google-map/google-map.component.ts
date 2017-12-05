@@ -2,18 +2,15 @@
 import {
   Component,
   OnInit,
-  Output,
-  EventEmitter,
-  Input,
   ViewChildren,
   QueryList,
-  OnChanges,
-  SimpleChanges
+  ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import {AgmSnazzyInfoWindow} from '@agm/snazzy-info-window';
 import {CityService} from '../city-card/city.service';
 import {GoogleMapService} from './google-map.service';
-import {CityCode} from './google-map.types';
+import {CityDynamicService} from '../city-card/city-dynamic.service';
 
 @Component
 ({
@@ -22,10 +19,9 @@ import {CityCode} from './google-map.types';
   styleUrls: ['./google-map.component.css']
 })
 
-export class GoogleMapComponent implements OnInit, OnChanges {
-  @Input() cityName: string;
-  @Output() childEvent = new EventEmitter<any>();
+export class GoogleMapComponent implements OnInit{
   @ViewChildren(AgmSnazzyInfoWindow) agmSnazzyInforWindow: QueryList<AgmSnazzyInfoWindow>;
+  @ViewChild('cityContainer', {read: ViewContainerRef}) cityContainerRef: ViewContainerRef;
 
   styles = [{
     'featureType': 'all',
@@ -97,10 +93,7 @@ export class GoogleMapComponent implements OnInit, OnChanges {
     'stylers': [{'color': '#070707'}]
   }, {'featureType': 'water', 'elementType': 'labels.text.stroke', 'stylers': [{'color': '#ffffff'}]}];
 
-  lat = 0;
-  lng = 0;
-  zoom = 2;
-  showSideNav: boolean;
+  lat: number; lng: number; zoom: number;
   cities: City[] = [
     {
       lat: 1.290270,
@@ -111,55 +104,32 @@ export class GoogleMapComponent implements OnInit, OnChanges {
   ];
 
   constructor(private cityService: CityService,
-              private googleMapService: GoogleMapService) {
+              private googleMapService: GoogleMapService,
+              private cityDynamicService: CityDynamicService) {
   }
 
   ngOnInit() {
+    this.lat = 0; this.lng = 0; this.zoom = 2;
     console.log('Map is successfully loaded');
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.lng);
   }
 
   zoomIn(city) {
     this.lat = city.lat;
     this.lng = city.lng;
     this.zoom = 11;
-
-    // const cityCode = new CityCode(null, null);
-    // const geoCoder = new google.maps.Geocoder();
-    // geoCoder.geocode({
-    //   'address': city
-    // }, (results, status) => {
-    //   if (status === google.maps.GeocoderStatus.OK) {
-    //     this.lat = results[0].geometry.location.lat();
-    //     this.lng = results[0].geometry.location.lng();
-    //   } else {
-    //     alert('Something got wrong' + status);
-    //   }
-    // });
-    // console.log(city);
-    // this.lat = cityCode.lat;
-    // this.lng = cityCode.lng;
-    // this.zoom = 12;
-    // this.lat = 1.290270;
-    // this.lng = 103.851959;
+    this.cityDynamicService.setRootViewContainerRef(this.cityContainerRef);
+    this.cityDynamicService.addDynamicCharts(city.name);
     this.selectFacility(0)
   };
-
-  cityDetail(city) {
-    this.showSideNav = true;
-    return this.cityService.getCityByName(city);
-  }
 
   reCenter() {
     this.lat = 0;
     this.lng = 0;
     this.zoom = 2;
+    this.cityDynamicService.clear();
   }
 
-  private selectFacility(marker_index) {
+  selectFacility(marker_index) {
     const livewindow = this.agmSnazzyInforWindow.find((window, i) => {
       return i === marker_index
     });
