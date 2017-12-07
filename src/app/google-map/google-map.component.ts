@@ -133,7 +133,7 @@ export class GoogleMapComponent implements OnInit{
     const livewindow = this.agmSnazzyInforWindow.find((window, i) => {
       return i === marker_index
     });
-    livewindow._closeInfoWindow();
+    // livewindow._closeInfoWindow();
   }
 }
 

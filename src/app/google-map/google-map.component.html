@@ -18,7 +18,7 @@
         <agm-snazzy-info-window [maxWidth]="800" [maxHeight]="800" [closeWhenOthersOpen]="true">
         <ng-template>
         <se-city-card [cityName]="m.label" [lat]="m.lat" [lng]="m.lng"
-        (cityDetail)="zoomIn($event); cityDetail($event)"></se-city-card>
+        (cityDetail)="zoomIn($event)"></se-city-card>
         </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
